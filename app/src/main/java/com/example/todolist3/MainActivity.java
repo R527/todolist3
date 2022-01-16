@@ -23,28 +23,28 @@ public class MainActivity extends AppCompatActivity {
         lo.setOrientation(LinearLayout.VERTICAL);
         setContentView(lo);
 
-        Button btn1 = new Button(this);
-        btn1.setText("OK");
-        btn1.setOnClickListener(v -> {
-            Log.v("setOnClickListener","btn1");
-        });
-        btn1.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-
-        lo.addView(btn1);
-
-        Button btn2 = new Button(this);
-        btn2.setText("Cancel");
-        btn2.setOnClickListener(v -> {
-            Log.v("setOnClickListener","btn2");
-        });
-        btn2.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        lo.addView(btn2);
+//        Button btn1 = new Button(this);
+//        btn1.setText("OK");
+//        btn1.setOnClickListener(v -> {
+//            Log.v("setOnClickListener","btn1");
+//        });
+//        btn1.setLayoutParams(new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        ));
+//
+//        lo.addView(btn1);
+//
+//        Button btn2 = new Button(this);
+//        btn2.setText("Cancel");
+//        btn2.setOnClickListener(v -> {
+//            Log.v("setOnClickListener","btn2");
+//        });
+//        btn2.setLayoutParams(new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        ));
+//        lo.addView(btn2);
     }
 
     @Override
