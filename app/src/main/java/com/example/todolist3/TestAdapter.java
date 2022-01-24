@@ -24,7 +24,7 @@ public class TestAdapter extends BaseAdapter {
         ImageView img;
     }
 
-    void TestAdapter(Context context,
+    TestAdapter(Context context,
                 String[] names, String[] emails){
 
         inflater = LayoutInflater.from(context);
