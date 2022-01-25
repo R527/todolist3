@@ -24,6 +24,21 @@ public class MainActivity extends AppCompatActivity {
             "Katakuriko"
     };
 
+    // drawableに画像を入れる、R.id.xxx はint型
+    private static final int[] photos = {
+            R.drawable.yuka,
+            R.drawable.kurumi,
+            R.drawable.tomoya,
+            R.drawable.mai,
+            R.drawable.miki,
+            R.drawable.saya,
+            R.drawable.toko,
+            R.drawable.nagi,
+            R.drawable.yuyu,
+            R.drawable.yumiko,
+            R.drawable.katakuriko
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // BaseAdapter を継承したadapterのインスタンスを生成
         // レイアウトファイル list_items.xml を
         // activity_main.xml に inflate するためにadapterに引数として渡す
-        BaseAdapter adapter = new TestAdapter(this.getApplicationContext(), names, emails);
+        BaseAdapter adapter = new TestAdapter(this.getApplicationContext(), R.layout.list_items,names, emails,photos);
 
 
         // ListViewにadapterをセット

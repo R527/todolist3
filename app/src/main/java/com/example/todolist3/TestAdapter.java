@@ -24,20 +24,20 @@ public class TestAdapter extends BaseAdapter {
         ImageView img;
     }
 
-    TestAdapter(Context context,
-                String[] names, String[] emails){
+    TestAdapter(Context context,int itemLayoutId,
+                String[] names, String[] emails, int[] photos){
 
         inflater = LayoutInflater.from(context);
-//        layoutID = itemLayoutId;
+        layoutID = itemLayoutId;
 
         namelist = names;
         emaillist = emails;
         // bitmapの配列
-//        photolist = new Bitmap[photos.length];
-        // drawableのIDからbitmapに変換
-//        for( int i = 0; i< photos.length; i++){
-//            photolist[i] = BitmapFactory.decodeResource(context.getResources(), photos[i]);
-//        }
+        photolist = new Bitmap[photos.length];
+         //drawableのIDからbitmapに変換
+        for( int i = 0; i< photos.length; i++){
+            photolist[i] = BitmapFactory.decodeResource(context.getResources(), photos[i]);
+        }
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TestAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return namelist.length;
     }
 
     @Override
