@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.Button;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         addTaskBtn.setOnClickListener(v -> {
             tasks.add("test");
             days.add(1);
-            System.out.println("test");
+            Log.v("setOnClickListener","test");
         });
         setContentView(R.layout.activity_main);
 
