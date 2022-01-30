@@ -22,18 +22,10 @@ public class MainActivity extends AppCompatActivity {
         List<String> tasks = new ArrayList<>();
         List<Integer> days = new ArrayList<>();
 
+
+
         // ListViewのインスタンスを生成
         ListView listView = findViewById(R.id.listView);
-
-        //btnの設定
-        Button addTaskBtn = findViewById(R.id.add_task_btn);
-        addTaskBtn.setOnClickListener(v -> {
-            tasks.add("test");
-            days.add(1);
-            Log.v("setOnClickListener","test");
-        });
-        setContentView(R.layout.activity_main);
-
         // BaseAdapter を継承したadapterのインスタンスを生成
         // レイアウトファイル list_items.xml を
         // activity_main.xml に inflate するためにadapterに引数として渡す
@@ -42,5 +34,15 @@ public class MainActivity extends AppCompatActivity {
         // ListViewにadapterをセット
         listView.setAdapter(adapter);
 
+        //btnの設定
+        Button addTaskBtn = findViewById(R.id.add_task_btn);
+        addTaskBtn.setOnClickListener(v -> {
+            tasks.add("test");
+            days.add(1);
+            Log.v("setOnClickListener","test");
+           // ListViewにadapterをセット
+            listView.setAdapter(adapter);
+        });
+        setContentView(R.layout.activity_main);
     }
 }
