@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             Log.v("setOnClickListener","test");
            // ListViewにadapterをセット
             listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         });
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
     }
 }
