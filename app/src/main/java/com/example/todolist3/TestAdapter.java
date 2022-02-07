@@ -19,62 +19,6 @@ public class TestAdapter extends BaseAdapter {
 
 
     private final String debugTag = "TaskAdapter";
-//    private LayoutInflater inflater;
-//    private int layoutID;
-//    private TaskModel taskModel;
-////    private List<String> tasklist;
-//
-////    static class ViewHolder {
-////        TextView task;
-////        TextView day;
-////    }
-//
-//    TestAdapter(Context context,int itemLayoutId,TaskModel model){
-//
-//        inflater = LayoutInflater.from(context);
-//        layoutID = itemLayoutId;
-//        this.taskModel = model;
-//    }
-//
-//
-//
-//    @Override
-//    public int getCount() {
-//        return taskModel.getAllTask().size();
-//        //taskModel.getAllTask().size()
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//
-//        List<Task> tasks = taskModel.getAllTask();
-//
-//        TextView taskTextView;
-//        Button deleteTaskButton;
-//
-//
-//        convertView = inflater.inflate(layoutID,parent,false);
-//        taskTextView = convertView.findViewById(R.id.task);
-//        deleteTaskButton = convertView.findViewById(R.id.delete_btn);
-//        deleteTaskButton.setTag(tasks.get(position).getTaskId());
-//        deleteTaskButton.setOnClickListener(v -> {
-//            taskModel.deleteTask((int)v.getTag());
-//            notifyDataSetChanged();
-//        });
-//
-//        taskTextView.setText(tasks.get(position).getTask());
-//        return convertView;
-//    }
 
     private LayoutInflater inflater;
     private int itemLayoutId;
@@ -123,7 +67,7 @@ public class TestAdapter extends BaseAdapter {
             }
         });
 
-        taskTextView.setText(tasks.get(position).getText(itemLayoutId));
+        taskTextView.setText(tasks.get(position).getText());
 
         return convertView;
     }

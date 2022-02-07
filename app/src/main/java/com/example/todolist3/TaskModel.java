@@ -6,7 +6,7 @@ import java.util.List;
 public class TaskModel {
     private List<Task> tasks;
 
-    public void  TaskModel(){
+    public TaskModel(){
         this.tasks = new ArrayList<Task>();
     }
 
