@@ -15,7 +15,16 @@ public class TaskModel {
     }
 
     public void addTask(String text){
-        this.tasks.add(new Task(text,tasks.size() + 1));
+        //すでに登録されているタスクのidのうち最も大きいものを取得する。
+        int currentMaxId = 0;
+        for(Task task : this.tasks) {
+            if(task.getId() > currentMaxId) {
+                currentMaxId = task.getId();
+            }
+        }
+
+        //それに1を足したものを新規idとする。
+        this.tasks.add(new Task(currentMaxId + 1,text));
     }
 
     public void deleteTask(int id){

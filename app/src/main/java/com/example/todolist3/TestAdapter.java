@@ -59,7 +59,7 @@ public class TestAdapter extends BaseAdapter {
         // ViewHolder を生成
         taskTextView = convertView.findViewById(R.id.task_text);
         deleteTaskButton = convertView.findViewById(R.id.delete_btn);
-        deleteTaskButton.setTag(tasks.get(position).getTaskId());
+        deleteTaskButton.setTag(tasks.get(position).getId());
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 taskModel.deleteTask((int)v.getTag());
@@ -67,7 +67,7 @@ public class TestAdapter extends BaseAdapter {
             }
         });
 
-        taskTextView.setText(tasks.get(position).getText());
+        taskTextView.setText(tasks.get(position).getTask());
 
         return convertView;
     }

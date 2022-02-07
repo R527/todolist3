@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
 
     @Override
     public void onDialogPositiveClick(String value) {
+        Log.d("Main","onDialogPositiveClick");
         taskModel.addTask(value);
         testAdapter.notifyDataSetChanged();
     }
