@@ -9,70 +9,122 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestAdapter extends BaseAdapter {
 
+
+    private final String debugTag = "TaskAdapter";
+//    private LayoutInflater inflater;
+//    private int layoutID;
+//    private TaskModel taskModel;
+////    private List<String> tasklist;
+//
+////    static class ViewHolder {
+////        TextView task;
+////        TextView day;
+////    }
+//
+//    TestAdapter(Context context,int itemLayoutId,TaskModel model){
+//
+//        inflater = LayoutInflater.from(context);
+//        layoutID = itemLayoutId;
+//        this.taskModel = model;
+//    }
+//
+//
+//
+//    @Override
+//    public int getCount() {
+//        return taskModel.getAllTask().size();
+//        //taskModel.getAllTask().size()
+//    }
+//
+//    @Override
+//    public Object getItem(int position) {
+//        return position;
+//    }
+//
+//    @Override
+//    public long getItemId(int position) {
+//        return position;
+//    }
+//
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//
+//        List<Task> tasks = taskModel.getAllTask();
+//
+//        TextView taskTextView;
+//        Button deleteTaskButton;
+//
+//
+//        convertView = inflater.inflate(layoutID,parent,false);
+//        taskTextView = convertView.findViewById(R.id.task);
+//        deleteTaskButton = convertView.findViewById(R.id.delete_btn);
+//        deleteTaskButton.setTag(tasks.get(position).getTaskId());
+//        deleteTaskButton.setOnClickListener(v -> {
+//            taskModel.deleteTask((int)v.getTag());
+//            notifyDataSetChanged();
+//        });
+//
+//        taskTextView.setText(tasks.get(position).getTask());
+//        return convertView;
+//    }
+
     private LayoutInflater inflater;
-    private int layoutID;
-    private List<String> tasklist;
-    private List<Integer> daylist;
+    private int itemLayoutId;
+    private TaskModel taskModel;
 
-
-    static class ViewHolder {
-        TextView task;
-        TextView day;
+    TestAdapter(Context context, int itemLayoutId, TaskModel model) {
+        super();
+        this.inflater = (LayoutInflater)
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.itemLayoutId = itemLayoutId;
+        this.taskModel = model;
     }
 
-    TestAdapter(Context context,int itemLayoutId,
-                List<String> tasks, List<Integer> days){
-
-        inflater = LayoutInflater.from(context);
-        layoutID = itemLayoutId;
-
-        tasklist = tasks;
-        daylist = days;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder;
-
-        if (convertView == null) {
-            convertView = inflater.inflate(layoutID, null);
-            holder = new ViewHolder();
-            holder.task = convertView.findViewById(R.id.task);
-            holder.day = convertView.findViewById(R.id.day);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        System.out.println("position" + position);
-        System.out.println("tasklist.get(position)" + tasklist.get(position));
-        holder.task.setText(tasklist.get(position));
-
-        holder.day.setText(String.valueOf(daylist.get(position)) + "日前");
-
-        return convertView;
-    }
 
     @Override
     public int getCount() {
-        return tasklist.size();
+        return taskModel.getAllTask().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        List<Task> tasks = taskModel.getAllTask();
 
+        TextView taskTextView;
+        Button deleteTaskButton;
+
+        convertView = inflater.inflate(itemLayoutId, parent, false);
+        // ViewHolder を生成
+        taskTextView = convertView.findViewById(R.id.task_text);
+        deleteTaskButton = convertView.findViewById(R.id.delete_btn);
+        deleteTaskButton.setTag(tasks.get(position).getTaskId());
+        deleteTaskButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                taskModel.deleteTask((int)v.getTag());
+                notifyDataSetChanged();
+            }
+        });
+
+        taskTextView.setText(tasks.get(position).getText(itemLayoutId));
+
+        return convertView;
+    }
 }

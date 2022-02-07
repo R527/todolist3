@@ -14,19 +14,19 @@ import java.util.Locale;
 public class Task extends AppCompatActivity {
 
     public String task;
-    public int day;
+    public int id;
 
-    Task(String task,int day){
-        this.day = day;
+    Task(String task,int id){
+        this.id = id;
         this.task = task;
     }
 
-    public int getDay(){
-        return this.day;
+    public int getid(){
+        return this.id;
     }
 
-    public void setDay(int day){
-        this.day = day;
+    public void setid(int id){
+        this.id = id;
     }
 
     public String getTask(){

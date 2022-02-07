@@ -1,49 +1,51 @@
 package com.example.todolist3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.BaseAdapter;
-import java.util.Locale;
-import java.util.ArrayList;
-import java.util.List;
-import android.widget.Button;
 import android.util.Log;
+import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-    private List<Task> taskList = new ArrayList<>();
+
+public class MainActivity extends AppCompatActivity implements AddTaskDialogFragment.AddTaskDialogListener{
+
+    private TaskModel taskModel;
+    private TestAdapter testAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<String> tasks = new ArrayList<>();
-        List<Integer> days = new ArrayList<>();
-
-
+        taskModel = new TaskModel();
 
         // ListViewのインスタンスを生成
         ListView listView = findViewById(R.id.listView);
-        // BaseAdapter を継承したadapterのインスタンスを生成
-        // レイアウトファイル list_items.xml を
-        // activity_main.xml に inflate するためにadapterに引数として渡す
-        BaseAdapter adapter = new TestAdapter(this.getApplicationContext(), R.layout.list_items,tasks,days);
+        testAdapter = new TestAdapter(this.getApplicationContext(),R.layout.list_items,taskModel);
+        listView.setAdapter(testAdapter);
 
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        //btnの設定
-        Button addTaskBtn = findViewById(R.id.add_task_btn);
-        addTaskBtn.setOnClickListener(v -> {
-            tasks.add("test");
-            days.add(1);
-            Log.v("setOnClickListener","test");
-           // ListViewにadapterをセット
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+        //タスク追加ボタン
+        FloatingActionButton button = (FloatingActionButton)findViewById(R.id.add_task_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new AddTaskDialogFragment();
+                dialog.show(getSupportFragmentManager(),"AddTaskDialogFragment");
+            }
         });
-//        setContentView(R.layout.activity_main);
+
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(String value) {
+        taskModel.addTask(value);
+        testAdapter.notifyDataSetChanged();
     }
 }
