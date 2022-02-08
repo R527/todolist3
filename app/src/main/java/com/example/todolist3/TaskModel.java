@@ -29,7 +29,10 @@ public class TaskModel extends AppCompatActivity {
     public void addTask(String text){
         this.tasks.add(new Task(tasks.size() + 1,text));
 
-        SharedPreferences pfs = context.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences pfs = context.getSharedPreferences("TaskData",MODE_PRIVATE);
+        Editor editor = pfs.edit();
+        editor.putString("task" + tasks.size() + 1,text);
+        editor.apply();
     }
 
     public void deleteTask(int id){

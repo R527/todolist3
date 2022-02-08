@@ -15,6 +15,8 @@ import android.content.SharedPreferences;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements AddTaskDialogFragment.AddTaskDialogListener{
 
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences pfs = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences pfs = getSharedPreferences("TaskData",MODE_PRIVATE);
         taskModel = new TaskModel();
 
         // ListViewのインスタンスを生成
@@ -33,6 +35,13 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
         testAdapter = new TestAdapter(this.getApplicationContext(),R.layout.list_items,taskModel);
         listView.setAdapter(testAdapter);
 
+        //task内容取得
+        List<Task> tasks =  taskModel.getAllTask();
+        if(tasks.size() != 0){
+            for(int i = 0; i < tasks.size();i++){
+                tasks.get(i).setTask(pfs.getString("task" + i,""));
+            }
+        }
         //タスク追加ボタン
         FloatingActionButton button = (FloatingActionButton)findViewById(R.id.add_task_button);
         button.setOnClickListener(new View.OnClickListener() {
