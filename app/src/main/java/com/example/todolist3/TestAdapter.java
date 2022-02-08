@@ -57,7 +57,7 @@ public class TestAdapter extends BaseAdapter {
 
         convertView = inflater.inflate(itemLayoutId, parent, false);
         // ViewHolder を生成
-        taskTextView = convertView.findViewById(R.id.task_text);
+        taskTextView = convertView.findViewById(R.id.task);
         deleteTaskButton = convertView.findViewById(R.id.delete_btn);
         deleteTaskButton.setTag(tasks.get(position).getId());
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {

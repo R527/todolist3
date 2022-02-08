@@ -3,12 +3,15 @@ package com.example.todolist3;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.content.SharedPreferences;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        SharedPreferences pfs = getPreferences(Context.MODE_PRIVATE);
         taskModel = new TaskModel();
 
         // ListViewのインスタンスを生成
