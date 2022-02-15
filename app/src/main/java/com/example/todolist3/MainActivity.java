@@ -3,18 +3,19 @@ package com.example.todolist3;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.content.SharedPreferences;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.ref.WeakReference;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,26 +23,22 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
 
     private TaskModel taskModel;
     private TestAdapter testAdapter;
+    AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences pfs = getSharedPreferences("TaskData",MODE_PRIVATE);
         taskModel = new TaskModel();
+        database = AppDatabaseSingleton.getInstace(getApplicationContext());
+
 
         // ListViewのインスタンスを生成
         ListView listView = findViewById(R.id.listView);
         testAdapter = new TestAdapter(this.getApplicationContext(),R.layout.list_items,taskModel);
         listView.setAdapter(testAdapter);
 
-        //task内容取得
-        List<Task> tasks =  taskModel.getAllTask();
-        if(tasks.size() != 0){
-            for(int i = 0; i < tasks.size();i++){
-                tasks.get(i).setTask(pfs.getString("task" + i,""));
-            }
-        }
+
         //タスク追加ボタン
         FloatingActionButton button = (FloatingActionButton)findViewById(R.id.add_task_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +55,54 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
     @Override
     public void onDialogPositiveClick(String value) {
         Log.d("Main","onDialogPositiveClick");
-        taskModel.addTask(value);
-        testAdapter.notifyDataSetChanged();
+        new ButtonClickListenr(this,database,value);
     }
+
+    private class ButtonClickListenr implements View.OnClickListener{
+        private Activity activity;
+        private AppDatabase database;
+        private String value;
+
+        public ButtonClickListenr(Activity activity, AppDatabase database, String value) {
+            this.activity = activity;
+            this.database = database;
+            this.value = value;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("MainActivity","onClick");
+            new DataStoreAsyncTask(database, activity, value).execute();
+        }
+    }
+
+    private static class DataStoreAsyncTask extends AsyncTask<Void,Void,Integer> {
+        private WeakReference<Activity> weakActivity;
+        private AppDatabase database;
+        private String value;
+
+        public DataStoreAsyncTask(AppDatabase database, Activity activity, String value){
+            this.database = database;
+            weakActivity = new WeakReference<>(activity);
+            this.value = value;
+        }
+
+        @Override
+        protected Integer doInBackground(Void...params){
+            AccessTimeDao accessTimeDao = (AccessTimeDao) database.accessTimeDao();
+            accessTimeDao.insert(new AccessTime(value));
+            Log.d("MainActivity",value);
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer code){
+            Log.d("MainActivity","onPostExecute");
+            Activity activity = weakActivity.get();
+            if(activity == null){
+                return;
+            }
+        }
+    }
+
 }
