@@ -48,22 +48,24 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
                 dialog.show(getSupportFragmentManager(),"AddTaskDialogFragment");
             }
         });
-
-
     }
 
     @Override
     public void onDialogPositiveClick(String value) {
-        Log.d("Main","onDialogPositiveClick");
+        Log.d("Main",value);
+        taskModel.addTask(value);
         new ButtonClickListenr(this,database,value);
+        testAdapter.notifyDataSetChanged();
     }
 
     private class ButtonClickListenr implements View.OnClickListener{
+
         private Activity activity;
         private AppDatabase database;
         private String value;
 
         public ButtonClickListenr(Activity activity, AppDatabase database, String value) {
+            Log.d("MainActivity","ButtonClickListenr");
             this.activity = activity;
             this.database = database;
             this.value = value;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
         private String value;
 
         public DataStoreAsyncTask(AppDatabase database, Activity activity, String value){
+            Log.d("MainActivity","DataStoreAsyncTask");
             this.database = database;
             weakActivity = new WeakReference<>(activity);
             this.value = value;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
 
         @Override
         protected Integer doInBackground(Void...params){
+            Log.d("MainActivity","doInBackground");
             AccessTimeDao accessTimeDao = (AccessTimeDao) database.accessTimeDao();
             accessTimeDao.insert(new AccessTime(value));
             Log.d("MainActivity",value);
