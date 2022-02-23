@@ -1,22 +1,18 @@
 package com.example.todolist3;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.ref.WeakReference;
-import java.sql.Timestamp;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements AddTaskDialogFragment.AddTaskDialogListener{
@@ -32,12 +28,10 @@ public class MainActivity extends AppCompatActivity implements AddTaskDialogFrag
         taskModel = new TaskModel();
         database = AppDatabaseSingleton.getInstace(getApplicationContext());
 
-
         // ListViewのインスタンスを生成
         ListView listView = findViewById(R.id.listView);
         testAdapter = new TestAdapter(this.getApplicationContext(),R.layout.list_items,taskModel);
         listView.setAdapter(testAdapter);
-
 
         //タスク追加ボタン
         FloatingActionButton button = (FloatingActionButton)findViewById(R.id.add_task_button);

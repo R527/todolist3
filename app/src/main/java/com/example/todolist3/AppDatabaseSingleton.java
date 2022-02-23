@@ -3,7 +3,6 @@ package com.example.todolist3;
 import android.content.Context;
 
 import androidx.room.Room;
-
 public class AppDatabaseSingleton {
     private static AppDatabase instace = null;
 
