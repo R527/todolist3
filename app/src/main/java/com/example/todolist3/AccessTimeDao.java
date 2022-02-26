@@ -6,24 +6,25 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
-
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface AccessTimeDao {
 
-    @Query("SELECT * FROM accessTime")
-    Flowable<List<AccessTime>> getAll();
+    @Query("SELECT * FROM taskentity")
+    Flowable<List<TaskEntity>> getAll();
 
-    @Query("SELECT * FROM accessTime WHERE id IN (:ids)")
-    List<AccessTime> loadAllByIds(int[] ids);
+    @Query("SELECT * FROM taskentity WHERE id IN (:ids)")
+    Flowable<List<TaskEntity>> loadAllByIds(int[] ids);
     @Insert
-    void insertAll(AccessTime... accessTimes);
+    Completable insertAll(TaskEntity... accessTimes);
 
     @Insert
-    void insert(AccessTime accessTime);
+    Completable insert(TaskEntity accessTime);
 
     @Delete
-    void delete(AccessTime accessTime);
+    Completable delete(TaskEntity accessTime);
 
 }
 

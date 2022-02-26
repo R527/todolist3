@@ -7,16 +7,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class AccessTime {
+public class TaskEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "access_time")
-    private String accessTime;
+    private String taskText;
 
-    public AccessTime(String accessTime){
-        this.accessTime = accessTime;
-    }
+//    public TaskEntity(String accessTime){
+//        this.taskText = accessTime;
+//    }
 
     public void setId(int id) {
         this.id = id;
@@ -26,11 +26,11 @@ public class AccessTime {
         return id;
     }
 
-    public void setAccessTime(String accessTime) {
-        this.accessTime = accessTime;
+    public void setTaskText(String accessTime) {
+        this.taskText = accessTime;
     }
 
-    public String getAccessTime() {
-        return accessTime;
+    public String getTaskText() {
+        return taskText;
     }
 }
